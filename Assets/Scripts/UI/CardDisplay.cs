@@ -263,11 +263,6 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
         }
         
         Debug.Log("Animation completed, waiting before action...");
-        
-        yield return new WaitForSeconds(displayDuration);
-        
-        transform.localScale = originalScale;
-        
         Debug.Log("Executing card action...");
         
         if (isDiscard)
@@ -278,6 +273,10 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
         {
             ArcomagGameManager.Instance.PlayCardWithAnimation(cardData, owner, this);
         }
+        
+        yield return new WaitForSeconds(displayDuration);
+        
+        transform.localScale = originalScale;
     }
     
     private Vector3 GetScreenCenter()

@@ -228,15 +228,15 @@ public class ArcomagGameManager : MonoBehaviour
             {
                 player.forceDiscardNextCard = false;
                 Debug.Log("Force discard completed, granting extra turn");
-                StartCoroutine(CompleteCardActionAfterDelay(cardDisplay, 0.1f, false, false));
+                StartCoroutine(CompleteCardActionAfterDelay(cardDisplay, 1f, false, false));
             }
             else if (card.extraTurn)
             {
-                StartCoroutine(CompleteCardActionAfterDelay(cardDisplay, 0.1f, false, false));
+                StartCoroutine(CompleteCardActionAfterDelay(cardDisplay, 1f, false, false));
             }
             else
             {
-                StartCoroutine(CompleteCardActionAfterDelay(cardDisplay, 0.1f, true, true));
+                StartCoroutine(CompleteCardActionAfterDelay(cardDisplay, 1f, true, true));
             }
         }
         else
