@@ -10,34 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa816d32e1403b2488c3b9e576b2c033, type: 3}
-  m_Name: '[74] Goblin Mob'
+  m_Name: '[74] Spearman'
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: Goblin Mob
-  description: '6 Damage
-
-    You take 3 Damage'
+  cardName: Spearman
+  description: If Wall > enemy Wall do 3 Damage else do 2 Damage
   pixelArtSprite: {fileID: 0}
   resourceType: 2
-  resourceCost: 3
+  resourceCost: 2
   effects:
   - effectType: 2
     target: 1
-    value: 6
+    value: 2
     modifyResourceType: 0
-    hasCondition: 0
-    condition: 0
+    hasCondition: 1
+    condition: 6
     resourceType: 0
     conditionValue: 0
-    alternativeValue: 0
-  - effectType: 2
-    target: 0
-    value: 3
-    modifyResourceType: 0
-    hasCondition: 0
-    condition: 0
-    resourceType: 0
-    conditionValue: 0
-    alternativeValue: 0
+    alternativeValue: 3
   extraTurn: 0
   discardInsteadOfPlay: 0
   isUndiscardable: 0

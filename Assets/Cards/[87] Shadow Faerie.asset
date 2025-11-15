@@ -10,23 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa816d32e1403b2488c3b9e576b2c033, type: 3}
-  m_Name: '[78] Little Snakes'
+  m_Name: '[87] Shadow Faerie'
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: Little Snakes
-  description: 4 Damage to enemy Tower
+  cardName: Shadow Faerie
+  description: '2 Damage to enemy Tower
+
+    Play again'
   pixelArtSprite: {fileID: 0}
   resourceType: 2
   resourceCost: 6
   effects:
   - effectType: 1
     target: 1
-    value: 4
+    value: 2
     modifyResourceType: 0
     hasCondition: 0
     condition: 0
     resourceType: 0
     conditionValue: 0
     alternativeValue: 0
-  extraTurn: 0
+  extraTurn: 1
   discardInsteadOfPlay: 0
   isUndiscardable: 0

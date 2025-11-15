@@ -10,18 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa816d32e1403b2488c3b9e576b2c033, type: 3}
-  m_Name: '[80] Troll Trainer'
+  m_Name: '[94] Rock Stompers'
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: Troll Trainer
-  description: +2 Dungeon
+  cardName: Rock Stompers
+  description: '8 Damage
+
+    -1 enemy Quarry'
   pixelArtSprite: {fileID: 0}
   resourceType: 2
-  resourceCost: 7
+  resourceCost: 11
   effects:
+  - effectType: 2
+    target: 1
+    value: 8
+    modifyResourceType: 0
+    hasCondition: 0
+    condition: 0
+    resourceType: 0
+    conditionValue: 0
+    alternativeValue: 0
   - effectType: 4
-    target: 0
-    value: 2
-    modifyResourceType: 2
+    target: 1
+    value: -1
+    modifyResourceType: 0
     hasCondition: 0
     condition: 0
     resourceType: 0

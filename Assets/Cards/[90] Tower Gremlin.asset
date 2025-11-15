@@ -10,18 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa816d32e1403b2488c3b9e576b2c033, type: 3}
-  m_Name: '[70] Moody Goblins'
+  m_Name: '[90] Tower Gremlin'
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: Moody Goblins
-  description: '4 Damage
+  cardName: Tower Gremlin
+  description: '2 Damage
 
-    You lose 3 Gems'
+    +4 Wall
+
+    +2 Tower'
   pixelArtSprite: {fileID: 0}
   resourceType: 2
-  resourceCost: 1
+  resourceCost: 8
   effects:
   - effectType: 2
     target: 1
+    value: 2
+    modifyResourceType: 0
+    hasCondition: 0
+    condition: 0
+    resourceType: 0
+    conditionValue: 0
+    alternativeValue: 0
+  - effectType: 6
+    target: 0
     value: 4
     modifyResourceType: 0
     hasCondition: 0
@@ -29,10 +40,10 @@ MonoBehaviour:
     resourceType: 0
     conditionValue: 0
     alternativeValue: 0
-  - effectType: 3
+  - effectType: 1
     target: 0
-    value: -3
-    modifyResourceType: 1
+    value: 2
+    modifyResourceType: 0
     hasCondition: 0
     condition: 0
     resourceType: 0

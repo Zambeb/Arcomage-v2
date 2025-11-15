@@ -52,5 +52,6 @@ public enum ConditionType
     SelfProductionGreaterThanOpponent,
     SelfProductionLessThanOpponent,
     SelfTowerLowerThanOpponent,
-    SelfTowerGreaterThanOppnoentWall
+    SelfTowerGreaterThanOppnoentWall,
+    SelfWallGreaterThanOpponent
 }

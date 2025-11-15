@@ -10,25 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa816d32e1403b2488c3b9e576b2c033, type: 3}
-  m_Name: '[71] Faerie'
+  m_Name: '[80] Goblin Archers'
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: Faerie
-  description: '2 Damage
+  cardName: Goblin Archers
+  description: '3 Damage to enemy Tower
 
-    Play again'
+    You take 1 Damage'
   pixelArtSprite: {fileID: 0}
   resourceType: 2
-  resourceCost: 1
+  resourceCost: 4
   effects:
-  - effectType: 2
+  - effectType: 1
     target: 1
-    value: 2
+    value: 3
     modifyResourceType: 0
     hasCondition: 0
     condition: 0
     resourceType: 0
     conditionValue: 0
     alternativeValue: 0
-  extraTurn: 1
+  - effectType: 2
+    target: 0
+    value: 1
+    modifyResourceType: 0
+    hasCondition: 0
+    condition: 0
+    resourceType: 0
+    conditionValue: 0
+    alternativeValue: 0
+  extraTurn: 0
   discardInsteadOfPlay: 0
   isUndiscardable: 0

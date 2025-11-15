@@ -10,22 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa816d32e1403b2488c3b9e576b2c033, type: 3}
-  m_Name: '[26] Barracks'
+  m_Name: '[83] Dwarves'
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: Barracks
-  description: '+6 Recruits
+  cardName: Dwarves
+  description: '4 Damage
 
-    +6 Wall
-
-    If Dungeon < enemy Dungeon, +1 Dungeon'
+    +3 Wall'
   pixelArtSprite: {fileID: 0}
-  resourceType: 0
-  resourceCost: 10
+  resourceType: 2
+  resourceCost: 5
   effects:
-  - effectType: 3
-    target: 0
-    value: 6
-    modifyResourceType: 2
+  - effectType: 2
+    target: 1
+    value: 4
+    modifyResourceType: 0
     hasCondition: 0
     condition: 0
     resourceType: 0
@@ -33,22 +31,13 @@ MonoBehaviour:
     alternativeValue: 0
   - effectType: 6
     target: 0
-    value: 6
-    modifyResourceType: 2
+    value: 3
+    modifyResourceType: 0
     hasCondition: 0
     condition: 0
     resourceType: 0
     conditionValue: 0
     alternativeValue: 0
-  - effectType: 4
-    target: 0
-    value: 0
-    modifyResourceType: 2
-    hasCondition: 1
-    condition: 3
-    resourceType: 2
-    conditionValue: 0
-    alternativeValue: 1
   extraTurn: 0
   discardInsteadOfPlay: 0
   isUndiscardable: 0

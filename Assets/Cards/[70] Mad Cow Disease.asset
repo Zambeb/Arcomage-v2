@@ -10,45 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa816d32e1403b2488c3b9e576b2c033, type: 3}
-  m_Name: '[26] Barracks'
+  m_Name: '[70] Mad Cow Disease'
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: Barracks
-  description: '+6 Recruits
-
-    +6 Wall
-
-    If Dungeon < enemy Dungeon, +1 Dungeon'
+  cardName: Mad Cow Disease
+  description: All players lose 6 Recruits
   pixelArtSprite: {fileID: 0}
-  resourceType: 0
-  resourceCost: 10
+  resourceType: 2
+  resourceCost: 0
   effects:
   - effectType: 3
-    target: 0
-    value: 6
+    target: 2
+    value: -6
     modifyResourceType: 2
     hasCondition: 0
     condition: 0
     resourceType: 0
     conditionValue: 0
     alternativeValue: 0
-  - effectType: 6
-    target: 0
-    value: 6
-    modifyResourceType: 2
-    hasCondition: 0
-    condition: 0
-    resourceType: 0
-    conditionValue: 0
-    alternativeValue: 0
-  - effectType: 4
-    target: 0
-    value: 0
-    modifyResourceType: 2
-    hasCondition: 1
-    condition: 3
-    resourceType: 2
-    conditionValue: 0
-    alternativeValue: 1
   extraTurn: 0
   discardInsteadOfPlay: 0
   isUndiscardable: 0

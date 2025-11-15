@@ -20,6 +20,7 @@ public class ArcomagGameManager : MonoBehaviour
     
     [Header("Card Database")]
     public List<CardData> allCards = new List<CardData>();
+    private List<CardData> sharedDeck = new List<CardData>();
     
     [Header("AI Settings")]
     public SimpleArcomagAI aiController;
@@ -62,6 +63,8 @@ public class ArcomagGameManager : MonoBehaviour
     
     private void InitializeGame()
     {
+        InitializeDeck();
+        
         player1 = new PlayerData() { 
             playerName = "Player 1", 
             playerType = PlayerType.Human 
@@ -78,6 +81,27 @@ public class ArcomagGameManager : MonoBehaviour
         StartTurn(true);
         
         Debug.Log("Game initialized. Current player: " + currentPlayer.playerName);
+    }
+    
+    private void InitializeDeck()
+    {
+        sharedDeck = new List<CardData>(allCards);
+        ShuffleDeck();
+        Debug.Log($"Shared deck initialized with {sharedDeck.Count} cards.");
+    }
+    
+    private void ShuffleDeck()
+    {
+        System.Random rng = new System.Random();
+        int n = sharedDeck.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = rng.Next(n + 1);
+            CardData value = sharedDeck[k];
+            sharedDeck[k] = sharedDeck[n];
+            sharedDeck[n] = value;
+        }
     }
     
     private PlayerData GetOpponent(PlayerData player)
@@ -111,10 +135,31 @@ public class ArcomagGameManager : MonoBehaviour
     
     public void DrawCard(PlayerData player)
     {
-        if (allCards.Count > 0)
+        // Проверяем, есть ли карты в общем пуле
+        if (sharedDeck.Count > 0)
         {
-            CardData randomCard = allCards[Random.Range(0, allCards.Count)];
+            // Берем случайную карту из пула
+            int cardIndex = Random.Range(0, sharedDeck.Count);
+            CardData randomCard = sharedDeck[cardIndex];
+        
+            // Удаляем карту из пула и добавляем ее в руку игрока
+            sharedDeck.RemoveAt(cardIndex);
             player.hand.Add(randomCard);
+        }
+        else
+        {
+            // Этого не должно случиться, если карты всегда возвращаются,
+            // но это хорошая проверка на случай, если пул опустеет.
+            Debug.LogWarning("Shared deck is empty! No card drawn.");
+        }
+    }
+    
+    private void ReturnCardToDeck(CardData card)
+    {
+        if (card != null)
+        {
+            int randomPosition = Random.Range(0, sharedDeck.Count + 1);
+            sharedDeck.Insert(randomPosition, card);
         }
     }
     
@@ -217,6 +262,7 @@ public class ArcomagGameManager : MonoBehaviour
         }
         
         player.hand.Remove(card);
+        ReturnCardToDeck(card);
         
         UIManager.Instance.UpdateGameState();
         
@@ -293,6 +339,7 @@ public void DiscardCardWithAnimation(CardData card, PlayerData player, CardDispl
     Debug.Log($"{player.playerName} discards with animation: {card.cardName}");
     
     player.hand.Remove(card);
+    ReturnCardToDeck(card);
     
     UIManager.Instance.UpdateGameState();
     
@@ -340,6 +387,7 @@ public void PlayCard(CardData card, PlayerData player)
     PayCardCost(card, player);
     ApplyCardEffects(card, player);
     player.hand.Remove(card);
+    ReturnCardToDeck(card);
         
     Debug.Log($"Card played. Hand count: {player.hand.Count}");
     
@@ -373,6 +421,7 @@ public void DiscardCard(CardData card, PlayerData player)
     Debug.Log($"{player.playerName} discards: {card.cardName}");
         
     player.hand.Remove(card);
+    ReturnCardToDeck(card);
         
     Debug.Log($"Card discarded. Hand count: {player.hand.Count}");
     
@@ -631,6 +680,8 @@ public void DiscardCard(CardData card, PlayerData player)
         
             case ConditionType.SelfTowerGreaterThanOppnoentWall:
                 return selfPlayer.tower > opponentPlayer.wall;
+            case ConditionType.SelfWallGreaterThanOpponent:
+                return selfPlayer.wall > opponentPlayer.wall;
 
             default:
                 return false;
