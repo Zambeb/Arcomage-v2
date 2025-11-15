@@ -10,28 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa816d32e1403b2488c3b9e576b2c033, type: 3}
-  m_Name: '[31] Dragon''s Heart'
+  m_Name: '[33] Rock Launcher'
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: Dragon's Heart
-  description: '+20 Wall
+  cardName: Rock Launcher
+  description: '+6 Wall
 
-    +8 Tower'
+    10 Damage to enemy'
   pixelArtSprite: {fileID: 0}
   resourceType: 0
-  resourceCost: 24
+  resourceCost: 18
   effects:
   - effectType: 6
     target: 0
-    value: 20
+    value: 6
     modifyResourceType: 0
     hasCondition: 0
     condition: 0
     resourceType: 0
     conditionValue: 0
     alternativeValue: 0
-  - effectType: 7
-    target: 0
-    value: 8
+  - effectType: 2
+    target: 1
+    value: 10
     modifyResourceType: 0
     hasCondition: 0
     condition: 0

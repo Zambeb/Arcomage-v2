@@ -583,6 +583,10 @@ public void DiscardCard(CardData card, PlayerData player)
                     }
                 }
                 break;
+            case CardEffectType.SwapWall:
+                (selfPlayer.wall, opponentPlayer.wall) = (opponentPlayer.wall, selfPlayer.wall);
+                Debug.Log($"Wall Swap performed! {selfPlayer.playerName} Wall: {selfPlayer.wall}, {opponentPlayer.playerName} Wall: {opponentPlayer.wall}");
+                break;
         }
     }
     

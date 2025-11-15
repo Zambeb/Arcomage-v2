@@ -10,33 +10,44 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa816d32e1403b2488c3b9e576b2c033, type: 3}
-  m_Name: '[26] Harmonic Ore'
+  m_Name: '[26] Barracks'
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: Harmonic Ore
-  description: '+6 Wall
+  cardName: Barracks
+  description: '+6 Recruits
 
-    +3 Tower'
+    +6 Wall
+
+    If Dungeon < enemy Dungeon, +1 Dungeon'
   pixelArtSprite: {fileID: 0}
   resourceType: 0
-  resourceCost: 11
+  resourceCost: 10
   effects:
+  - effectType: 3
+    target: 0
+    value: 6
+    modifyResourceType: 2
+    hasCondition: 0
+    condition: 0
+    resourceType: 0
+    conditionValue: 0
+    alternativeValue: 0
   - effectType: 6
     target: 0
     value: 6
-    modifyResourceType: 0
+    modifyResourceType: 2
     hasCondition: 0
     condition: 0
     resourceType: 0
     conditionValue: 0
     alternativeValue: 0
-  - effectType: 7
+  - effectType: 4
     target: 0
-    value: 3
-    modifyResourceType: 0
+    value: 0
+    modifyResourceType: 2
     hasCondition: 0
-    condition: 0
-    resourceType: 0
+    condition: 3
+    resourceType: 2
     conditionValue: 0
-    alternativeValue: 0
+    alternativeValue: 1
   extraTurn: 0
   discardInsteadOfPlay: 0

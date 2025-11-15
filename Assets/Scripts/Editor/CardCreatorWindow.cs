@@ -83,7 +83,7 @@ public class CardCreatorWindow : EditorWindow
             CreateNewCardAsset();
         }
     
-        GUILayout.Space(15);
+        GUILayout.Space(5);
         
         GUI.color = Color.yellow;
         if (GUILayout.Button("2. Update All Indices (Resort)"))
@@ -94,7 +94,7 @@ public class CardCreatorWindow : EditorWindow
         }
         GUI.color = Color.white;
 
-        GUILayout.Space(20);
+        GUILayout.Space(5);
 
         if (!AssetDatabase.IsValidFolder(savePath.TrimEnd('/')))
         {
@@ -118,7 +118,7 @@ public class CardCreatorWindow : EditorWindow
                 LoadAllCards(); 
             }
         }
-        GUILayout.Space(10);
+        GUILayout.Space(5);
     }
     
     private void DrawCardList()

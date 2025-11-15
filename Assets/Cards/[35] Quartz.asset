@@ -10,33 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa816d32e1403b2488c3b9e576b2c033, type: 3}
-  m_Name: '[28] Focused Designs'
+  m_Name: '[35] Quartz'
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: Focused Designs
-  description: '+8 Wall
+  cardName: Quartz
+  description: '+1 Tower
 
-    +5 Tower'
+    Play again'
   pixelArtSprite: {fileID: 0}
-  resourceType: 0
-  resourceCost: 15
+  resourceType: 1
+  resourceCost: 1
   effects:
-  - effectType: 6
-    target: 0
-    value: 8
-    modifyResourceType: 0
-    hasCondition: 0
-    condition: 0
-    resourceType: 0
-    conditionValue: 0
-    alternativeValue: 0
   - effectType: 7
     target: 0
-    value: 5
+    value: 1
     modifyResourceType: 0
     hasCondition: 0
     condition: 0
     resourceType: 0
     conditionValue: 0
     alternativeValue: 0
-  extraTurn: 0
+  extraTurn: 1
   discardInsteadOfPlay: 0
