@@ -21,7 +21,7 @@ MonoBehaviour:
   - effectType: 3
     target: 2
     value: -6
-    modifyResourceType: 0
+    modifyResourceType: 2
     hasCondition: 0
     condition: 0
     resourceType: 0
