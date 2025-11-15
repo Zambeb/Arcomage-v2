@@ -435,6 +435,12 @@ public void DiscardCard(CardData card, PlayerData player)
                 continue; // Пропускаем стандартный ApplySingleEffect
             }
             
+            if (effect.effectType == CardEffectType.SetProductionToMax)
+            {
+                SetProductionToMaxValue(effect);
+                continue; 
+            }
+            
             switch (effect.target)
             {
                 case TargetType.Self:
@@ -455,6 +461,54 @@ public void DiscardCard(CardData card, PlayerData player)
             ApplySingleEffect(effect, targetPlayer);
         }
         ProcessSpecialCardLogic(card, player);
+    }
+    
+    private void SetProductionToMaxValue(CardEffect effect)
+    {
+        ResourceType targetType = effect.modifyResourceType;
+        int prod1, prod2;
+
+        // 1. Находим текущие значения производства
+        switch (targetType)
+        {
+            case ResourceType.Bricks:
+                prod1 = player1.quarry;
+                prod2 = player2.quarry;
+                break;
+            case ResourceType.Gems:
+                prod1 = player1.magic; // <--- Ваш целевой ресурс
+                prod2 = player2.magic;
+                break;
+            case ResourceType.Recruits:
+                prod1 = player1.dungeon;
+                prod2 = player2.dungeon;
+                break;
+            default:
+                Debug.LogError($"Invalid ResourceType {targetType} for SetProductionToMax.");
+                return;
+        }
+
+        // 2. Определяем максимальное значение
+        int maxValue = Mathf.Max(prod1, prod2);
+    
+        Debug.Log($"SetProductionToMax: Target={targetType}. Max Value Found: {maxValue}");
+
+        // 3. Применяем максимальное значение обоим игрокам
+        switch (targetType)
+        {
+            case ResourceType.Bricks:
+                player1.quarry = maxValue;
+                player2.quarry = maxValue;
+                break;
+            case ResourceType.Gems:
+                player1.magic = maxValue;
+                player2.magic = maxValue;
+                break;
+            case ResourceType.Recruits:
+                player1.dungeon = maxValue;
+                player2.dungeon = maxValue;
+                break;
+        }
     }
     
     private void ApplyLowestWallEffect(CardEffect effect)
@@ -551,6 +605,13 @@ public void DiscardCard(CardData card, PlayerData player)
             {
                 var (self, opponent) = GetProductionValues(selfPlayer, opponentPlayer, effect.resourceType);
                 if (self < opponent)
+                {
+                    conditionMet = true;
+                }
+            }
+            else if (effect.condition == ConditionType.SelfTowerLowerThanOpponent)
+            {
+                if (selfPlayer.tower < opponentPlayer.tower)
                 {
                     conditionMet = true;
                 }

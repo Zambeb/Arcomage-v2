@@ -1738,6 +1738,7 @@ MonoBehaviour:
     hand: []
   allCards:
   - {fileID: 11400000, guid: 1e54a09d02bfef34faf5c7e510e395c0, type: 2}
+  - {fileID: 11400000, guid: f6a07498ad534ac47ba5cf38b28d5ce6, type: 2}
   aiController: {fileID: 576639497}
 --- !u!4 &1362821456
 Transform:
