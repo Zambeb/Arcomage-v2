@@ -73,6 +73,28 @@ public class CardCreatorWindow : EditorWindow
         GUILayout.Label("Save Path:", EditorStyles.miniLabel);
         savePath = EditorGUILayout.TextField(savePath);
         GUILayout.Space(5);
+        
+        GUILayout.Space(10);
+
+        newCardName = EditorGUILayout.TextField("Card Name", newCardName);
+
+        if (GUILayout.Button("1. Create New CardData Asset"))
+        {
+            CreateNewCardAsset();
+        }
+    
+        GUILayout.Space(15);
+        
+        GUI.color = Color.yellow;
+        if (GUILayout.Button("2. Update All Indices (Resort)"))
+        {
+            CardDataEditor.UpdateAllAssetsOrder(savePath.TrimEnd('/'));
+            LoadAllCards(); 
+            Repaint();
+        }
+        GUI.color = Color.white;
+
+        GUILayout.Space(20);
 
         if (!AssetDatabase.IsValidFolder(savePath.TrimEnd('/')))
         {
@@ -97,14 +119,6 @@ public class CardCreatorWindow : EditorWindow
             }
         }
         GUILayout.Space(10);
-
-        newCardName = EditorGUILayout.TextField("Card Name", newCardName);
-
-        if (GUILayout.Button("1. Create New CardData Asset"))
-        {
-            CreateNewCardAsset();
-        }
-        GUILayout.Space(20);
     }
     
     private void DrawCardList()
@@ -123,8 +137,12 @@ public class CardCreatorWindow : EditorWindow
         
             // Для нумерации (индекса)
             int index = 1;
+            
+            var sortedCards = allCards
+                .OrderBy(c => c.resourceType)
+                .ThenBy(c => c.resourceCost);
 
-            foreach (CardData card in allCards.OrderBy(c => c.cardName))
+            foreach (CardData card in sortedCards)
             {
                 EditorGUILayout.BeginHorizontal(GUI.skin.box);
             

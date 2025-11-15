@@ -385,6 +385,12 @@ public void DiscardCard(CardData card, PlayerData player)
         
         foreach (var effect in card.effects)
         {
+            if (effect.effectType == CardEffectType.ApplyEffectToLowestWall)
+            {
+                ApplyLowestWallEffect(effect);
+                continue; // Пропускаем стандартный ApplySingleEffect
+            }
+            
             switch (effect.target)
             {
                 case TargetType.Self:
@@ -405,6 +411,51 @@ public void DiscardCard(CardData card, PlayerData player)
             ApplySingleEffect(effect, targetPlayer);
         }
         ProcessSpecialCardLogic(card, player);
+    }
+    
+    private void ApplyLowestWallEffect(CardEffect effect)
+    {
+        int wall1 = player1.wall;
+        int wall2 = player2.wall;
+    
+        List<PlayerData> lowestWallPlayers = new List<PlayerData>();
+    
+        if (wall1 < wall2)
+        {
+            // Player 1 имеет наименьшую стену
+            lowestWallPlayers.Add(player1);
+        }
+        else if (wall2 < wall1)
+        {
+            // Player 2 имеет наименьшую стену
+            lowestWallPlayers.Add(player2);
+        }
+        else
+        {
+            // Стены равны (Wall1 == Wall2)
+            lowestWallPlayers.Add(player1);
+            lowestWallPlayers.Add(player2);
+        }
+
+        // --- Применение Эффектов ---
+    
+        // Эффект 1: Modify Production (-1 Dungeon)
+        int dungeonModification = effect.value; // -1
+        ResourceType dungeonType = effect.modifyResourceType; // Recruits
+    
+        // Эффект 2: Damage Tower (2 Damage)
+        int towerDamage = effect.alternativeValue; // 2
+
+        foreach (PlayerData target in lowestWallPlayers)
+        {
+            Debug.Log($"Applying Lowest Wall effect to: {target.playerName}");
+        
+            // 1. Применяем Modify Production (-1 Dungeon/Recruits)
+            ModifyProduction(target, dungeonType, dungeonModification);
+        
+            // 2. Применяем Damage Tower (2 Damage)
+            target.tower = Mathf.Max(0, target.tower - towerDamage);
+        }
     }
     
     private void ProcessSpecialCardLogic(CardData card, PlayerData player)

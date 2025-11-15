@@ -32,7 +32,8 @@ public enum CardEffectType
     DrawCard,
     DiscardCard,
     ForceDiscardNextCard, 
-    RemoveForceDiscard    
+    RemoveForceDiscard,
+    ApplyEffectToLowestWall
 }
 
 public enum PlayerType
