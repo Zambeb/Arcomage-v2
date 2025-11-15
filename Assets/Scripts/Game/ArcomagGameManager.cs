@@ -246,9 +246,47 @@ public class ArcomagGameManager : MonoBehaviour
         }
     }
 
+    public void HandleAIActionBlocked(PlayerData aiPlayer)
+    {
+        Debug.Log($"AI turn logic restarting for {aiPlayer.playerName} after blocked action.");
+    
+        // Сбрасываем флаг, если он был установлен (хотя в DiscardCardAsAI он не устанавливался)
+        isProcessingTurn = false; 
+    
+        // Перезапускаем логику хода AI с небольшой задержкой, 
+        // чтобы избежать мгновенного зацикливания или проблем с отрисовкой UI.
+        StartCoroutine(StartAIActionAfterDelay(aiPlayer, 0.5f));
+    }
+    
+    private IEnumerator StartAIActionAfterDelay(PlayerData aiPlayer, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+    
+        // Убеждаемся, что AI все еще активный игрок
+        if (currentPlayer == aiPlayer)
+        {
+            // Запускаем логику AI снова
+            if (aiController != null)
+            {
+                aiController.MakeAIMove(aiPlayer);
+            }
+            else
+            {
+                MakeRandomAIMove(aiPlayer);
+            }
+        }
+    }
+    
 public void DiscardCardWithAnimation(CardData card, PlayerData player, CardDisplay cardDisplay)
 {
     if (isProcessingTurn || gameOver) return;
+    
+    if (card.isUndiscardable) 
+    {
+        Debug.LogWarning($"{player.playerName} attempted to discard non-discardable card: {card.cardName}. Action blocked.");
+        isProcessingTurn = false;
+        return;
+    }
     
     isProcessingTurn = true;
     
@@ -325,6 +363,12 @@ public void PlayCard(CardData card, PlayerData player)
 public void DiscardCard(CardData card, PlayerData player)
 {
     if (gameOver) return;
+    
+    if (card.isUndiscardable) 
+    {
+        Debug.LogWarning($"{player.playerName} attempted to discard non-discardable card: {card.cardName}. Action blocked.");
+        return;
+    }
         
     Debug.Log($"{player.playerName} discards: {card.cardName}");
         

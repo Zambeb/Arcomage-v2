@@ -161,6 +161,13 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
                 Debug.Log("Cannot manually discard - waiting for mandatory card action.");
                 return; 
             }
+            
+            if (cardData.isUndiscardable) 
+            {
+                Debug.LogWarning($"Cannot discard '{cardData.cardName}'. This card must be played.");
+                return;
+            }
+            
             Debug.Log($"Discarding card: {cardData.cardName}");
             StartCoroutine(AnimateCardAndPlay(true));
         }
@@ -181,6 +188,18 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
     public void DiscardCardAsAI()
     {
         if (isAnimating || owner == null || cardData == null) return;
+        
+        if (cardData.isUndiscardable) 
+        {
+            Debug.LogWarning($"AI attempted to discard non-discardable card: {cardData.cardName}. Action blocked.");
+            if (owner.playerType == PlayerType.AI && ArcomagGameManager.Instance.IsCurrentPlayer(owner))
+            {
+                // Вызываем новый метод, который перезапустит логику AI
+                ArcomagGameManager.Instance.HandleAIActionBlocked(owner);
+            }
+            // -------------------------------------
+            return;
+        }
         
         Debug.Log($"AI discarding card: {cardData.cardName}");
         StartCoroutine(AnimateCardAndPlay(true));

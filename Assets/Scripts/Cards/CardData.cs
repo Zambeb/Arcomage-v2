@@ -22,4 +22,5 @@ public class CardData : ScriptableObject
     [Header("Game Flow")]
     public bool extraTurn = false;
     public bool discardInsteadOfPlay = false;
+    public bool isUndiscardable = false;
 }
