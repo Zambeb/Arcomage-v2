@@ -80,6 +80,26 @@ public class ArcomagGameManager : MonoBehaviour
         Debug.Log("Game initialized. Current player: " + currentPlayer.playerName);
     }
     
+    private PlayerData GetOpponent(PlayerData player)
+    {
+        return (player == player1) ? player2 : player1;
+    }
+    
+    private (int selfProd, int oppProd) GetProductionValues(PlayerData selfPlayer, PlayerData opponentPlayer, ResourceType type)
+    {
+        switch (type)
+        {
+            case ResourceType.Bricks:
+                return (selfPlayer.quarry, opponentPlayer.quarry);
+            case ResourceType.Gems:
+                return (selfPlayer.magic, opponentPlayer.magic);
+            case ResourceType.Recruits:
+                return (selfPlayer.dungeon, opponentPlayer.dungeon);
+            default:
+                return (0, 0);
+        }
+    }
+    
     private void DrawInitialHand(PlayerData player)
     {
         player.hand.Clear();
@@ -403,33 +423,20 @@ public void DiscardCard(CardData card, PlayerData player)
         }
     }
     
+    // Scripts/Game/ArcomagGameManager.cs
+
     private void ApplySingleEffect(CardEffect effect, PlayerData target)
     {
-        bool conditionMet = false;
+        PlayerData selfPlayer = GetCurrentPlayer();
+        PlayerData opponentPlayer = GetOpponent(selfPlayer);
+
+        bool conditionMet = false; 
         int finalValue = effect.value;
         
-        bool shouldCheckCondition = effect.hasCondition || effect.effectType == CardEffectType.SetProductionToOpponent;
-        
-        if (shouldCheckCondition)
+        bool isSpecialSetEffect = effect.effectType == CardEffectType.SetProductionToOpponent;
+
+        if (effect.hasCondition || isSpecialSetEffect)
         {
-            PlayerData attackingPlayer = GetCurrentPlayer();
-            PlayerData opponentPlayer = (target == player1) ? player2 : player1;
-            
-            (int selfProd, int oppProd) GetProductionValues(ResourceType type)
-            {
-                switch (type)
-                {
-                    case ResourceType.Bricks:
-                        return (attackingPlayer.quarry, opponentPlayer.quarry);
-                    case ResourceType.Gems:
-                        return (attackingPlayer.magic, opponentPlayer.magic);
-                    case ResourceType.Recruits:
-                        return (attackingPlayer.dungeon, opponentPlayer.dungeon);
-                    default:
-                        return (0, 0);
-                }
-            }
-        
             if (effect.condition == ConditionType.TargetWallBelow)
             {
                 if (target.wall < effect.conditionValue)
@@ -437,26 +444,24 @@ public void DiscardCard(CardData card, PlayerData player)
                     conditionMet = true;
                 }
             }
-
-            if (effect.condition == ConditionType.SelfProductionGreaterThanOpponent)
+            else if (effect.condition == ConditionType.SelfProductionGreaterThanOpponent)
             {
-                var (self, opponent) = GetProductionValues(effect.resourceType);
+                var (self, opponent) = GetProductionValues(selfPlayer, opponentPlayer, effect.resourceType);
                 if (self > opponent)
                 {
                     conditionMet = true;
                 }
             }
-            
-            if (effect.condition == ConditionType.SelfProductionLessThanOpponent)
+            else if (effect.condition == ConditionType.SelfProductionLessThanOpponent)
             {
-                var (self, opponent) = GetProductionValues(effect.resourceType);
+                var (self, opponent) = GetProductionValues(selfPlayer, opponentPlayer, effect.resourceType);
                 if (self < opponent)
                 {
                     conditionMet = true;
                 }
             }
-
-            if (effect.hasCondition)
+            
+            if (effect.hasCondition && !isSpecialSetEffect)
             {
                 if (conditionMet)
                 {
@@ -498,12 +503,6 @@ public void DiscardCard(CardData card, PlayerData player)
                 DrawCard(target);
                 break;
             case CardEffectType.DiscardCard:
-                if (target.hand.Count > 0)
-                {
-                    CardData cardToDiscard = target.hand[Random.Range(0, target.hand.Count)];
-                    target.hand.Remove(cardToDiscard);
-                    DrawCard(target);
-                }
                 break;
             case CardEffectType.ForceDiscardNextCard:
                 target.forceDiscardNextCard = true;
@@ -512,23 +511,22 @@ public void DiscardCard(CardData card, PlayerData player)
                 target.forceDiscardNextCard = false;
                 break;
             case CardEffectType.SetProductionToOpponent:
-                PlayerData targetPlayer = GetCurrentPlayer();
-                PlayerData opponent = (targetPlayer == player1) ? player2 : player1;
-                
                 if (conditionMet)
                 {
+                    PlayerData opponent = GetOpponent(selfPlayer); 
+                    
                     switch (effect.modifyResourceType)
                     {
                         case ResourceType.Bricks:
-                            targetPlayer.quarry = opponent.quarry;
+                            selfPlayer.quarry = opponent.quarry;
                             Debug.Log($"SetProductionToOpponent: Quarry set to {opponent.quarry}");
                             break;
                         case ResourceType.Gems:
-                            targetPlayer.magic = opponent.magic;
+                            selfPlayer.magic = opponent.magic;
                             Debug.Log($"SetProductionToOpponent: Magic set to {opponent.magic}");
                             break;
                         case ResourceType.Recruits:
-                            targetPlayer.dungeon = opponent.dungeon;
+                            selfPlayer.dungeon = opponent.dungeon;
                             Debug.Log($"SetProductionToOpponent: Dungeon set to {opponent.dungeon}");
                             break;
                     }
