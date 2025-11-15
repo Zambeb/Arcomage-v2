@@ -21,7 +21,7 @@ MonoBehaviour:
   - effectType: 4
     target: 0
     value: 1
-    modifyResourceType: 0
+    modifyResourceType: 1
     hasCondition: 0
     condition: 0
     resourceType: 0
@@ -29,3 +29,4 @@ MonoBehaviour:
     alternativeValue: 0
   extraTurn: 0
   discardInsteadOfPlay: 0
+  isUndiscardable: 0
