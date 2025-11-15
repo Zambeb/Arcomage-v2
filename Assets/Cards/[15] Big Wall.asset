@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa816d32e1403b2488c3b9e576b2c033, type: 3}
-  m_Name: '[16] Big Wall'
+  m_Name: '[15] Big Wall'
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardName: Big Wall
   description: +6 Wall

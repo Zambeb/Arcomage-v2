@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa816d32e1403b2488c3b9e576b2c033, type: 3}
-  m_Name: '[15] Mother Lode'
+  m_Name: '[17] Flood Water'
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: Mother Lode
-  description: If Quarry < enemy Quarry, +2 Quarry, else +1 Quarry
+  cardName: Flood Water
+  description: Player(s) with lowest Wall are -1 Dungeon and 2 Damage to Tower
   pixelArtSprite: {fileID: 0}
   resourceType: 0
-  resourceCost: 4
+  resourceCost: 6
   effects:
-  - effectType: 4
+  - effectType: 12
     target: 0
-    value: 1
-    modifyResourceType: 0
+    value: -1
+    modifyResourceType: 2
     hasCondition: 1
-    condition: 3
+    condition: 0
     resourceType: 0
     conditionValue: 0
     alternativeValue: 2

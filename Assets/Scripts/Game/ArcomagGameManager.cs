@@ -621,16 +621,18 @@ public void DiscardCard(CardData card, PlayerData player)
     
     private void ModifyProduction(PlayerData target, ResourceType type, int value)
     {
+        const int MIN_PRODUCTION = 1;
+        
         switch (type)
         {
             case ResourceType.Bricks:
-                target.quarry = Mathf.Max(0, target.quarry + value);
+                target.quarry = Mathf.Max(MIN_PRODUCTION, target.quarry + value);
                 break;
             case ResourceType.Gems:
-                target.magic = Mathf.Max(0, target.magic + value);
+                target.magic = Mathf.Max(MIN_PRODUCTION, target.magic + value);
                 break;
             case ResourceType.Recruits:
-                target.dungeon = Mathf.Max(0, target.dungeon + value);
+                target.dungeon = Mathf.Max(MIN_PRODUCTION, target.dungeon + value);
                 break;
         }
     }

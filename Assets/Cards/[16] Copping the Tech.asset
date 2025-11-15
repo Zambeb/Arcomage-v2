@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa816d32e1403b2488c3b9e576b2c033, type: 3}
-  m_Name: '[11] Foundations'
+  m_Name: '[16] Copping the Tech'
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: Foundations
-  description: If Wall = 0, + 6 Wall, else +3 Wall
+  cardName: Copping the Tech
+  description: If Quarry < enemy Quarry, Quarry = enemy Quarry
   pixelArtSprite: {fileID: 0}
   resourceType: 0
-  resourceCost: 3
+  resourceCost: 5
   effects:
-  - effectType: 6
+  - effectType: 5
     target: 0
-    value: 3
+    value: 0
     modifyResourceType: 0
     hasCondition: 1
-    condition: 1
+    condition: 3
     resourceType: 0
-    conditionValue: 1
-    alternativeValue: 6
+    conditionValue: 0
+    alternativeValue: 0
   extraTurn: 0
   discardInsteadOfPlay: 0

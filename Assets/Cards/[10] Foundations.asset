@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa816d32e1403b2488c3b9e576b2c033, type: 3}
-  m_Name: '[09] Basic Wall'
+  m_Name: '[10] Foundations'
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: Basic Wall
-  description: +3 Wall
+  cardName: Foundations
+  description: If Wall = 0, + 6 Wall, else +3 Wall
   pixelArtSprite: {fileID: 0}
   resourceType: 0
-  resourceCost: 2
+  resourceCost: 3
   effects:
   - effectType: 6
     target: 0
     value: 3
     modifyResourceType: 0
-    hasCondition: 0
-    condition: 0
+    hasCondition: 1
+    condition: 1
     resourceType: 0
-    conditionValue: 0
-    alternativeValue: 0
+    conditionValue: 1
+    alternativeValue: 6
   extraTurn: 0
   discardInsteadOfPlay: 0

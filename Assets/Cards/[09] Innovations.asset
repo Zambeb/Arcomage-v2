@@ -10,29 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa816d32e1403b2488c3b9e576b2c033, type: 3}
-  m_Name: '[06] Rock Garden'
+  m_Name: '[09] Innovations'
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: Rock Garden
-  description: '+1 Wall
+  cardName: Innovations
+  description: '+1 to all players'' Quarrys
 
-    +1 Tower
-
-    +2 Recruits'
+    You gain 4 Gems'
   pixelArtSprite: {fileID: 0}
   resourceType: 0
-  resourceCost: 1
+  resourceCost: 2
   effects:
-  - effectType: 6
-    target: 0
-    value: 1
-    modifyResourceType: 0
-    hasCondition: 0
-    condition: 0
-    resourceType: 0
-    conditionValue: 0
-    alternativeValue: 0
-  - effectType: 7
-    target: 0
+  - effectType: 4
+    target: 2
     value: 1
     modifyResourceType: 0
     hasCondition: 0
@@ -42,8 +31,8 @@ MonoBehaviour:
     alternativeValue: 0
   - effectType: 3
     target: 0
-    value: 2
-    modifyResourceType: 2
+    value: 4
+    modifyResourceType: 1
     hasCondition: 0
     condition: 0
     resourceType: 0
