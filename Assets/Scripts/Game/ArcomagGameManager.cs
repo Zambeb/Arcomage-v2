@@ -441,6 +441,12 @@ public void DiscardCard(CardData card, PlayerData player)
                 continue; 
             }
             
+            if (effect.effectType == CardEffectType.ConditionalDamageTargetSwap)
+            {
+                ApplyConditionalDamageSwap(effect, player);
+                continue;
+            }
+            
             switch (effect.target)
             {
                 case TargetType.Self:
@@ -463,6 +469,37 @@ public void DiscardCard(CardData card, PlayerData player)
         ProcessSpecialCardLogic(card, player);
     }
     
+    private void ApplyConditionalDamageSwap(CardEffect effect, PlayerData selfPlayer)
+    {
+        PlayerData opponentPlayer = GetOpponent(selfPlayer);
+    
+        // Проверяем, что условие карты соответствует желаемому (If Tower > enemy Wall)
+        if (effect.condition != ConditionType.SelfTowerGreaterThanOppnoentWall)
+        {
+            Debug.LogError("ConditionalDamageSwap used with wrong condition type. Must be SelfTowerGreaterThanOppnoentWall.");
+            return;
+        }
+    
+        // Проверяем условие
+        bool conditionMet = (selfPlayer.tower > opponentPlayer.wall);
+    
+        int damage = effect.value; // Базовое значение (8)
+    
+        if (conditionMet)
+        {
+            // Условие выполнено: Damage to Enemy TOWER
+            damage = effect.alternativeValue; // Используем альтернативное значение (например, 8)
+            opponentPlayer.tower = Mathf.Max(0, opponentPlayer.tower - damage);
+            Debug.Log($"Conditional Damage Met: {selfPlayer.playerName} dealt {damage} damage to opponent's TOWER.");
+        }
+        else
+        {
+            // Условие НЕ выполнено: Damage to Enemy WALL
+            damage = effect.value; // Используем базовое значение (например, 8)
+            opponentPlayer.wall = Mathf.Max(0, opponentPlayer.wall - damage);
+            Debug.Log($"Conditional Damage Not Met: {selfPlayer.playerName} dealt {damage} damage to opponent's WALL.");
+        }
+    }
     private void SetProductionToMaxValue(CardEffect effect)
     {
         ResourceType targetType = effect.modifyResourceType;
@@ -572,17 +609,53 @@ public void DiscardCard(CardData card, PlayerData player)
         }
     }
     
-    // Scripts/Game/ArcomagGameManager.cs
+    private bool CheckCardCondition(CardEffect effect, PlayerData selfPlayer, PlayerData opponentPlayer, PlayerData target)
+    {
+        // Note: Use 'target' only for conditions related to the effect's target (like TargetWallBelow).
+
+        switch (effect.condition)
+        {
+            case ConditionType.TargetWallBelow:
+                return target.wall < effect.conditionValue;
+
+            case ConditionType.SelfProductionGreaterThanOpponent:
+                var (selfG, opponentG) = GetProductionValues(selfPlayer, opponentPlayer, effect.resourceType);
+                return selfG > opponentG;
+
+            case ConditionType.SelfProductionLessThanOpponent:
+                var (selfL, opponentL) = GetProductionValues(selfPlayer, opponentPlayer, effect.resourceType);
+                return selfL < opponentL;
+
+            case ConditionType.SelfTowerLowerThanOpponent:
+                return selfPlayer.tower < opponentPlayer.tower;
+        
+            case ConditionType.SelfTowerGreaterThanOppnoentWall:
+                return selfPlayer.tower > opponentPlayer.wall;
+
+            default:
+                return false;
+        }
+    }
 
     private void ApplySingleEffect(CardEffect effect, PlayerData target)
     {
         PlayerData selfPlayer = GetCurrentPlayer();
         PlayerData opponentPlayer = GetOpponent(selfPlayer);
-
-        bool conditionMet = false; 
-        int finalValue = effect.value;
         
+        int finalValue = effect.value;
         bool isSpecialSetEffect = effect.effectType == CardEffectType.SetProductionToOpponent;
+        
+        bool conditionMet = false;
+        if (effect.hasCondition || isSpecialSetEffect)
+        {
+            conditionMet = CheckCardCondition(effect, selfPlayer, opponentPlayer, target);
+            
+            if (effect.hasCondition && !isSpecialSetEffect)
+            {
+                finalValue = conditionMet ? effect.alternativeValue : effect.value;
+                //Debug.Log($"Condition {(conditionMet ? "met" : "NOT met")}: using {(conditionMet ? "alternative" : "base")} value {finalValue}");
+            }
+        }
 
         if (effect.hasCondition || isSpecialSetEffect)
         {
@@ -612,6 +685,13 @@ public void DiscardCard(CardData card, PlayerData player)
             else if (effect.condition == ConditionType.SelfTowerLowerThanOpponent)
             {
                 if (selfPlayer.tower < opponentPlayer.tower)
+                {
+                    conditionMet = true;
+                }
+            }
+            else if (effect.condition == ConditionType.SelfTowerGreaterThanOppnoentWall)
+            {
+                if (selfPlayer.tower > opponentPlayer.wall)
                 {
                     conditionMet = true;
                 }

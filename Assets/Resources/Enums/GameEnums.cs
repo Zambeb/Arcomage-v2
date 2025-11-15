@@ -35,7 +35,8 @@ public enum CardEffectType
     RemoveForceDiscard,
     ApplyEffectToLowestWall,
     SwapWall,
-    SetProductionToMax
+    SetProductionToMax,
+    ConditionalDamageTargetSwap
 }
 
 public enum PlayerType
@@ -50,5 +51,6 @@ public enum ConditionType
     TargetWallBelow, 
     SelfProductionGreaterThanOpponent,
     SelfProductionLessThanOpponent,
-    SelfTowerLowerThanOpponent
+    SelfTowerLowerThanOpponent,
+    SelfTowerGreaterThanOppnoentWall
 }

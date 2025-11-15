@@ -15,6 +15,6 @@ public class CardEffect
     public ConditionType condition; 
     public ResourceType resourceType;
     public int conditionValue; 
-    public int alternativeValue; 
+    public int alternativeValue;
 }
 

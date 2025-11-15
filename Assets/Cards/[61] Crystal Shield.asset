@@ -10,21 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa816d32e1403b2488c3b9e576b2c033, type: 3}
-  m_Name: '[63] Sanctuary'
+  m_Name: '[61] Crystal Shield'
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: Sanctuary
-  description: '+10 Tower
+  cardName: Crystal Shield
+  description: '+8 Tower
 
-    +5 Wall
-
-    Gain 5 Recruits'
+    +3 Wall'
   pixelArtSprite: {fileID: 0}
   resourceType: 1
-  resourceCost: 15
+  resourceCost: 12
   effects:
   - effectType: 7
     target: 0
-    value: 10
+    value: 8
     modifyResourceType: 0
     hasCondition: 0
     condition: 0
@@ -33,17 +31,8 @@ MonoBehaviour:
     alternativeValue: 0
   - effectType: 6
     target: 0
-    value: 5
+    value: 3
     modifyResourceType: 0
-    hasCondition: 0
-    condition: 0
-    resourceType: 0
-    conditionValue: 0
-    alternativeValue: 0
-  - effectType: 3
-    target: 0
-    value: 5
-    modifyResourceType: 2
     hasCondition: 0
     condition: 0
     resourceType: 0

@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa816d32e1403b2488c3b9e576b2c033, type: 3}
-  m_Name: '[64] Diamond'
+  m_Name: '[60] Lightning Shard'
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: Diamond
-  description: +15 Tower
+  cardName: Lightning Shard
+  description: If Tower > enemy Wall, 8 Damage to enemy Tower, else 8 Damage
   pixelArtSprite: {fileID: 0}
   resourceType: 1
-  resourceCost: 16
+  resourceCost: 11
   effects:
-  - effectType: 7
-    target: 0
-    value: 15
+  - effectType: 15
+    target: 1
+    value: 8
     modifyResourceType: 0
-    hasCondition: 0
-    condition: 0
+    hasCondition: 1
+    condition: 5
     resourceType: 0
     conditionValue: 0
-    alternativeValue: 0
+    alternativeValue: 8
   extraTurn: 0
   discardInsteadOfPlay: 0
   isUndiscardable: 0
