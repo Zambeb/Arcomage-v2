@@ -2331,34 +2331,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e26f4209297c5a843822ef02c7eecc14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArcomagGameManager
-  winTowerHeight: 50
-  winResourceAmount: 100
+  winTowerHeight: 200
+  winResourceAmount: 500
   startingHandSize: 6
+  startingTower: 20
+  startingWall: 10
+  startingProduction: 1
+  startingResources: 14
   player1:
     playerName: 
     playerType: 0
     tower: 20
     wall: 10
-    bricks: 5
-    gems: 5
-    recruits: 5
-    quarry: 2
-    magic: 2
-    dungeon: 2
+    bricks: 14
+    gems: 14
+    recruits: 14
+    quarry: 1
+    magic: 1
+    dungeon: 1
     forceDiscardNextCard: 0
     extraActionsRemaining: 0
     hand: []
   player2:
     playerName: 
-    playerType: 1
+    playerType: 0
     tower: 20
     wall: 10
-    bricks: 5
-    gems: 5
-    recruits: 5
-    quarry: 2
-    magic: 2
-    dungeon: 2
+    bricks: 14
+    gems: 14
+    recruits: 14
+    quarry: 1
+    magic: 1
+    dungeon: 1
     forceDiscardNextCard: 0
     extraActionsRemaining: 0
     hand: []
@@ -2465,7 +2469,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e57a96bcf6ff93043bfbf7d574da45b5, type: 2}
   - {fileID: 11400000, guid: a9dd004e19d237941b46ff9f6ca40be6, type: 2}
   - {fileID: 11400000, guid: 31a668d5f61dca942aced08efd8a63cf, type: 2}
-  aiController: {fileID: 576639497}
+  aiController: {fileID: 0}
 --- !u!4 &1362821456
 Transform:
   m_ObjectHideFlags: 0

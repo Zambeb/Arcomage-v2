@@ -13,6 +13,10 @@ public class ArcomagGameManager : MonoBehaviour
     public int winTowerHeight = 50;
     public int winResourceAmount = 100;
     public int startingHandSize = 6;
+    public int startingTower = 20;
+    public int startingWall = 10;
+    public int startingProduction = 2;
+    public int startingResources = 3;
     
     [Header("Players")]
     public PlayerData player1;
@@ -67,11 +71,27 @@ public class ArcomagGameManager : MonoBehaviour
         
         player1 = new PlayerData() { 
             playerName = "Player 1", 
-            playerType = PlayerType.Human 
+            playerType = PlayerType.Human,
+            tower = startingTower,
+            wall = startingWall,
+            quarry = startingProduction,
+            magic = startingProduction,
+            dungeon = startingProduction,
+            bricks = startingResources,
+            gems = startingResources,
+            recruits = startingResources
         };
         player2 = new PlayerData() { 
             playerName = "AI Opponent", 
-            playerType = PlayerType.AI 
+            playerType = PlayerType.AI,
+            tower = startingTower,
+            wall = startingWall,
+            quarry = startingProduction,
+            magic = startingProduction,
+            dungeon = startingProduction,
+            bricks = startingResources,
+            gems = startingResources,
+            recruits = startingResources
         };
         
         DrawInitialHand(player1);
