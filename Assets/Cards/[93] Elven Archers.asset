@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: '[93] Elven Archers'
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardName: Elven Archers
-  description: If Wall > enemy Wall, 6 Damage to enemy Wall, else 6 Damage
+  description: If Wall > enemy Wall, 6 Damage to enemy Tower, else 6 Damage
   pixelArtSprite: {fileID: 0}
   resourceType: 2
   resourceCost: 10

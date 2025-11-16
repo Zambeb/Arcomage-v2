@@ -30,16 +30,7 @@ public class ImageFill : MonoBehaviour
         gameManager = ArcomagGameManager.Instance;
         
         if (gameManager == null) return;
-        
-        if (playerID == TargetPlayerID.Player1)
-        {
-            targetPlayer = gameManager.player1;
-        }
-        else if (playerID == TargetPlayerID.Player2)
-        {
-            targetPlayer = gameManager.player2;
-        }
-        
+
         cachedMaxValue = gameManager.winTowerHeight; 
         if (statType == TargetStat.Wall && cachedMaxValue < 1) 
         {
@@ -51,6 +42,22 @@ public class ImageFill : MonoBehaviour
     
     public void UpdateFill()
     {
+        if (gameManager == null)
+        {
+            gameManager = ArcomagGameManager.Instance;
+            if (gameManager == null) return; 
+        }
+
+        if (playerID == TargetPlayerID.Player1)
+        {
+            targetPlayer = gameManager.player1;
+        }
+        else if (playerID == TargetPlayerID.Player2)
+        {
+            targetPlayer = gameManager.player2;
+        }
+        // ------------------------------------
+
         if (targetPlayer == null || image == null || cachedMaxValue <= 0)
         {
             image.fillAmount = 0;
@@ -69,13 +76,7 @@ public class ImageFill : MonoBehaviour
                 currentValue = targetPlayer.wall;
                 break;
         }
-        
-        if (playerID == TargetPlayerID.Player1 && statType == TargetStat.Wall)
-        {
-            // Этот лог будет появляться при каждом обновлении UI
-            Debug.Log($"P1 WALL UpdateFill: Reading targetPlayer.wall = {currentValue}. Setting FillAmount to {Mathf.Clamp01(currentValue / cachedMaxValue)}");
-        }
-        
+
         image.fillAmount = Mathf.Clamp01(currentValue / cachedMaxValue);
     }
 }

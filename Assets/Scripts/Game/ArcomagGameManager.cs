@@ -691,74 +691,19 @@ public void DiscardCard(CardData card, PlayerData player)
     {
         PlayerData selfPlayer = GetCurrentPlayer();
         PlayerData opponentPlayer = GetOpponent(selfPlayer);
-        
+    
         int finalValue = effect.value;
         bool isSpecialSetEffect = effect.effectType == CardEffectType.SetProductionToOpponent;
-        
+    
         bool conditionMet = false;
         if (effect.hasCondition || isSpecialSetEffect)
         {
             conditionMet = CheckCardCondition(effect, selfPlayer, opponentPlayer, target);
-            
+        
             if (effect.hasCondition && !isSpecialSetEffect)
             {
                 finalValue = conditionMet ? effect.alternativeValue : effect.value;
-                //Debug.Log($"Condition {(conditionMet ? "met" : "NOT met")}: using {(conditionMet ? "alternative" : "base")} value {finalValue}");
-            }
-        }
-
-        if (effect.hasCondition || isSpecialSetEffect)
-        {
-            if (effect.condition == ConditionType.TargetWallBelow)
-            {
-                if (target.wall < effect.conditionValue)
-                {
-                    conditionMet = true;
-                }
-            }
-            else if (effect.condition == ConditionType.SelfProductionGreaterThanOpponent)
-            {
-                var (self, opponent) = GetProductionValues(selfPlayer, opponentPlayer, effect.resourceType);
-                if (self > opponent)
-                {
-                    conditionMet = true;
-                }
-            }
-            else if (effect.condition == ConditionType.SelfProductionLessThanOpponent)
-            {
-                var (self, opponent) = GetProductionValues(selfPlayer, opponentPlayer, effect.resourceType);
-                if (self < opponent)
-                {
-                    conditionMet = true;
-                }
-            }
-            else if (effect.condition == ConditionType.SelfTowerLowerThanOpponent)
-            {
-                if (selfPlayer.tower < opponentPlayer.tower)
-                {
-                    conditionMet = true;
-                }
-            }
-            else if (effect.condition == ConditionType.SelfTowerGreaterThanOppnoentWall)
-            {
-                if (selfPlayer.tower > opponentPlayer.wall)
-                {
-                    conditionMet = true;
-                }
-            }
-            
-            if (effect.hasCondition && !isSpecialSetEffect)
-            {
-                if (conditionMet)
-                {
-                    finalValue = effect.alternativeValue;
-                    Debug.Log($"Condition met: using alternative value {finalValue}");
-                }
-                else
-                {
-                    finalValue = effect.value;
-                    Debug.Log($"Condition NOT met: using base value {finalValue}");
-                }
+                Debug.Log($"Condition {(conditionMet ? "met" : "NOT met")}: using {(conditionMet ? "alternative" : "base")} value {finalValue}");
             }
         }
         
