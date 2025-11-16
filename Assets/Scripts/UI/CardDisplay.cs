@@ -12,6 +12,7 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
     public Text nameText;
     public Text costText;
     public Text descriptionText;
+    public GameObject discardIndicator;
     
     [Header("Resource Icons")]
     public Sprite bricksIcon;
@@ -79,6 +80,11 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
                 ResourceType.Recruits => recruitsIcon,
                 _ => null
             };
+        }
+        
+        if (discardIndicator != null)
+        {
+            discardIndicator.SetActive(false);
         }
         
         originalScale = transform.localScale;
@@ -211,6 +217,11 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
         
         bool isVisualDiscard = isDiscard || (owner.forceDiscardNextCard && ArcomagGameManager.Instance.IsCurrentPlayer(owner));
         
+        if (isVisualDiscard && discardIndicator != null)
+        {
+            discardIndicator.SetActive(true);
+        }
+        
         if (button != null) button.interactable = false;
         
         originalPosition = rectTransform.position;
@@ -321,12 +332,17 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
         {
             bool canInteract = owner != null && owner.playerType == PlayerType.Human;
             bool canPlay = owner != null && owner.CanPlayCard(cardData);
-            button.interactable = canInteract && canPlay && !isAnimating;
+            bool isForceDiscard = owner != null && owner.forceDiscardNextCard && ArcomagGameManager.Instance.IsCurrentPlayer(owner);
+            button.interactable = canInteract && (canPlay || isForceDiscard) && !isAnimating;
             
             Image bg = GetComponent<Image>();
             if (bg != null && owner != null && owner.playerType == PlayerType.Human)
             {
-                bg.color = canPlay ? Color.white : new Color(1, 1, 1, 0.5f);
+                bg.color = (canPlay || isForceDiscard) ? Color.white : new Color(1, 1, 1, 0.5f);
+            }
+            if (discardIndicator != null)
+            {
+                discardIndicator.SetActive(isForceDiscard);
             }
         }
     }

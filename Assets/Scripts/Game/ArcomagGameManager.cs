@@ -175,10 +175,9 @@ public class ArcomagGameManager : MonoBehaviour
         if (produceResources)
         {
             currentPlayer.ProduceResources();
+            RefillHandToSix(currentPlayer);
         }
-        
-        RefillHandToSix(currentPlayer);
-        
+
         if (UIManager.Instance != null)
         {
             UIManager.Instance.UpdateGameState();

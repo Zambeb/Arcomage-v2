@@ -70,6 +70,12 @@ public class ImageFill : MonoBehaviour
                 break;
         }
         
+        if (playerID == TargetPlayerID.Player1 && statType == TargetStat.Wall)
+        {
+            // Этот лог будет появляться при каждом обновлении UI
+            Debug.Log($"P1 WALL UpdateFill: Reading targetPlayer.wall = {currentValue}. Setting FillAmount to {Mathf.Clamp01(currentValue / cachedMaxValue)}");
+        }
+        
         image.fillAmount = Mathf.Clamp01(currentValue / cachedMaxValue);
     }
 }
